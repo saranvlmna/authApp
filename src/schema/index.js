@@ -10,14 +10,14 @@ module.exports = {
         format: "email"
       },
       phone: {
-        type: "number"
+        type: "string" || "number"
       },
       password: {
         type: "string"
       }
     },
     required: ["name", "email", "phone", "password"],
-    additionalProperties: false
+    additionalProperties: true
   },
 
   loginSchema: {

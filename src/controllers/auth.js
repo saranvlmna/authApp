@@ -1,31 +1,43 @@
-const { StatusCodes } = require('http-status-codes')
 const { authService } = require('../service');
 
 module.exports = {
-    
+
     signup: async (req, res, next) => {
         try {
             const user = await authService.signup(req.body);
-            req.session.user = user
-            return res.status(StatusCodes.OK).json({
-                message: 'User created successfully',
-                data: user
-            });
+            req.session.user = user.data
+            if (user) {
+                res.redirect('/')
+            }
         } catch (error) {
-            next(error);
+            res.render('signup', { logInError: error.message });
         }
     },
 
-    login: async (req, res, next) => { 
+    login: async (req, res, next) => {
         try {
             const user = await authService.login(req.body);
             req.session.user = user
-            return res.status(StatusCodes.OK).json({
-                message: 'User logged in successfully',
-                data: user
-            });
+            if (user) {
+                res.redirect('/')
+            }
         } catch (error) {
-            next(error);
+            res.render('login', { logInError: error.message });
         }
+    },
+
+    signupForm: (req, res) => {
+        res.render('signup')
+    },
+
+    loginForm: (req, res) => {
+        res.render('login')
+    },
+
+    logout: (req, res) => {
+        req.session.destroy();
+        res.redirect('/')
     }
+
 }
+

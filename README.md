@@ -11,4 +11,3 @@ Auth api
 
 Home api
 /
-# authApp

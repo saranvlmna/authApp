@@ -9,11 +9,12 @@ module.exports = {
         }
     },
     
-    findOne: async (data) => { 
-        const user = await User.findOne(data)
-        return {
-            data: user
-        }
+    findByEmail: async (email) => {
+        return await User.findOne({ email });
+    },
+
+    findByMobile: async (phone) => {
+        return await User.findOne({ phone })
     },
 
     list: async () => {
@@ -23,3 +24,4 @@ module.exports = {
         }
     },
 }
+
